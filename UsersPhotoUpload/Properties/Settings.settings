@@ -1,0 +1,36 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="UsersPhotoUpload.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="FolderRoot" Type="System.String" Scope="User">
+      <Value Profile="(Default)">\\mscs-fs-01\PhotoDB\</Value>
+    </Setting>
+    <Setting Name="FolderKzkk" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Казань</Value>
+    </Setting>
+    <Setting Name="FolderKdtt" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Краснодар</Value>
+    </Setting>
+    <Setting Name="FolderMssu" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Москва</Value>
+    </Setting>
+    <Setting Name="FolderMspo" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Москва</Value>
+    </Setting>
+    <Setting Name="FolderMskm" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Москва</Value>
+    </Setting>
+    <Setting Name="FolderSplp" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Санкт-Петербург</Value>
+    </Setting>
+    <Setting Name="FolderSctrk" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Сочи</Value>
+    </Setting>
+    <Setting Name="FolderMskv" Type="System.String" Scope="User">
+      <Value Profile="(Default)">УК</Value>
+    </Setting>
+    <Setting Name="FolderUfkk" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Уфа</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
