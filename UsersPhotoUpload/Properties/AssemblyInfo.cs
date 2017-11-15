@@ -8,11 +8,11 @@ using System.Windows;
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
 [assembly: AssemblyTitle("UsersPhotoUpload")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Приложение для загрузки фотографий пользователей в ActiveDirectory, Exchange 2016 и LoyaltySurvey")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("OOO Klinika LMS")]
 [assembly: AssemblyProduct("UsersPhotoUpload")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyCopyright("nn-admin ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

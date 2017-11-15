@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -42,6 +43,9 @@ namespace UsersPhotoUpload {
 			Console.WriteLine("AddItemsToListView, fileNames length: " + fileNames.Length);
 
 			foreach (string file in fileNames) {
+				if (!file.EndsWith(".jpg"))
+					continue;
+
 				string fileName = System.IO.Path.GetFileName(file);
 				string filePath = System.IO.Path.GetDirectoryName(file);
 				BitmapFrame bitmapFrame = BitmapFrame.Create(new Uri(file), BitmapCreateOptions.DelayCreation, BitmapCacheOption.None);
@@ -57,10 +61,23 @@ namespace UsersPhotoUpload {
 					Company = ""};
 				listViewFiles.Items.Add(listVIewFilesItem);
 			}
+
+			SetButtonsEnableState();
+		}
+
+		private void SetButtonsEnableState() {
+			buttonHandle.IsEnabled = listViewFiles.Items.Count > 0;
+			buttonSearchAccounts.IsEnabled = listViewFiles.Items.Count > 0;
 		}
 
 		private void ButtonDelete_Click(object sender, RoutedEventArgs e) {
 			Console.WriteLine("ButtonDelete_Click");
+			List<Object> itemsToRemove = new List<object>();
+			foreach (object item in listViewFiles.SelectedItems)
+				itemsToRemove.Add(item);
+			foreach (object itemToRemove in itemsToRemove)
+				listViewFiles.Items.Remove(itemToRemove);
+			SetButtonsEnableState();
 		}
 
 		private async void ButtonHandle_Click(object sender, RoutedEventArgs e) {
@@ -95,7 +112,8 @@ namespace UsersPhotoUpload {
 			buttonHandle.IsEnabled = true;
 			Cursor = Cursors.Arrow;
 
-			MessageBox.Show("Проверьте комментарии напротив каждой строчки", "Завершено", MessageBoxButton.OK, MessageBoxImage.Information);
+			MessageBox.Show("Информация по каждому файлу записана в столбец 'Результат'", 
+				"Загрузка завершена", MessageBoxButton.OK, MessageBoxImage.Information);
 		}
 
 		private void HandleFiles(List<ListViewFilesItem> items, bool loadToAd, bool loadToExchange, bool loadToSurveyLoyalty) {
@@ -141,6 +159,33 @@ namespace UsersPhotoUpload {
 		private void SetApplicationState(bool IsBusy) {
 			Cursor = IsBusy ? Cursors.Wait : Cursors.Arrow;
 			this.IsEnabled = !IsBusy;
+		}
+
+		private void listViewFiles_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+			buttonDelete.IsEnabled = listViewFiles.SelectedItems.Count > 0;
+		}
+
+		private void listViewFiles_Drop(object sender, DragEventArgs e) {
+			Console.WriteLine("listViewFiles_Drop");
+			string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+			
+			List<string> fileNames = new List<string>();
+
+			foreach (string fileName in files) {
+				FileAttributes fileAttribute = File.GetAttributes(fileName);
+				if ((fileAttribute & FileAttributes.Directory) == FileAttributes.Directory) {
+					try {
+						string[] filesInDirectory = Directory.GetFiles(fileName, "*", System.IO.SearchOption.AllDirectories);
+						fileNames.AddRange(filesInDirectory);
+					} catch (Exception exception) {
+						Console.WriteLine(exception.Message + " " + exception.StackTrace);
+					}
+				} else {
+					fileNames.Add(fileName);
+				}
+			}
+			
+			AddItemsToListView(fileNames.ToArray());
 		}
 	}
 }

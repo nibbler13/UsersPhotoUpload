@@ -15,31 +15,35 @@ namespace UsersPhotoUpload {
 			double progressStep = 100 / (items.Count * handleTypesCount);
 			
 			foreach (ListViewFilesItem item in items) {
-				setProgressBarValue(progressCurrent);
-				progressCurrent += progressStep;
+				try {
+					setProgressBarValue(progressCurrent);
+					progressCurrent += progressStep;
 
-				if (item.SAMAccountName.Equals(string.Empty))
-					FindSAMAccountName(item);
+					if (item.SAMAccountName.Equals(string.Empty))
+						FindSAMAccountName(item);
 
-				if (item.SAMAccountName.Equals(string.Empty)) {
-					Application.Current.Dispatcher.Invoke(new Action(() => {
-						WindowAdAccountSearch windowAdAccountSearch = new WindowAdAccountSearch(item);
-						windowAdAccountSearch.ShowDialog();
-					}));
+					if (item.SAMAccountName.Equals(string.Empty)) {
+						Application.Current.Dispatcher.Invoke(new Action(() => {
+							WindowAdAccountSearch windowAdAccountSearch = new WindowAdAccountSearch(item);
+							windowAdAccountSearch.ShowDialog();
+						}));
+					}
+
+					if (item.SAMAccountName.Equals(string.Empty)) {
+						item.Result = "AD - учетная запись пользователя не выбрана";
+						continue;
+					}
+
+					if (LoadToAd) {
+						bool adResult = ActiveDirectorySystem.InsertPicture(item.SAMAccountName, item.IconUri);
+						item.Result = adResult ? "AD - ok" : "AD - ошибка";
+					}
+
+					if (LoadToLoyaltySurvey)
+						LoyaltySurveySystem.CopyFileToLoyaltySurvey(item);
+				} catch (Exception e) {
+					Console.WriteLine(e.Message);
 				}
-
-				if (item.SAMAccountName.Equals(string.Empty)) {
-					item.Result = "Учетная запись пользователя не выбрана";
-					continue;
-				}
-
-				if (LoadToAd) {
-					bool adResult = ActiveDirectorySystem.InsertPicture(item.SAMAccountName, item.IconUri);
-					item.Result = adResult ? "AD фото успешно обновлено" : "AD не удалось обновить фото";
-				}
-
-				if (LoadToLoyaltySurvey)
-					LoyaltySurveySystem.CopyFileToLoyaltySurvey(item);
 			}
 
 			if (LoadToExchange)

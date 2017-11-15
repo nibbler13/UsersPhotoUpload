@@ -9,12 +9,12 @@ namespace UsersPhotoUpload {
 	class LoyaltySurveySystem {
 		public static void CopyFileToLoyaltySurvey(ListViewFilesItem item) {
 			if (string.IsNullOrEmpty(item.DistinguishedName)) {
-				item.Result += " | Отсутствует учетная запись для копирования LoyaltySurvey";
+				item.Result += " | LoyaltySurvey - учетная запись пользователя не выбрана";
 				return;
 			}
 
 			if (!item.Dimension.Equals("500 x 500")) {
-				item.Result += " | Размер изображения не соответствует требуемому для LoyaltySurvey (500 x 500)";
+				item.Result += " | LoyaltySurvey - размер изображения не соответствует требуемому (500 x 500)";
 				return;
 			}
 
@@ -40,15 +40,15 @@ namespace UsersPhotoUpload {
 				try {
 					File.Copy(item.IconUri, destinationFile, true);
 				} catch (Exception e) {
-					item.Result += " | Не удалось скопировать файл для LoyaltySurvey: " + destinationFile + " - " + e.Message;
+					item.Result += " | LoyaltySurvey - не удалось скопировать файл: " + destinationFile + " - " + e.Message;
 					return;
 				}
 
-				item.Result += " | Файл для LoyaltySurvey скопирован успешно: " + destinationFile;
+				item.Result += " | LoyaltySurvey - ok, имя файла: " + destinationFile;
 				return;
 			}
 
-			item.Result += " | Не удалось определить расположение для LoyaltySurvey";
+			item.Result += " | LoyaltySurvey - не удалось найти путь сохранения для подразделения";
 		}
 	}
 }
