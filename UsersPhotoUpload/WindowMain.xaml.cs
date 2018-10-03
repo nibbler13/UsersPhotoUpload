@@ -43,7 +43,7 @@ namespace UsersPhotoUpload {
 			Console.WriteLine("AddItemsToListView, fileNames length: " + fileNames.Length);
 
 			foreach (string file in fileNames) {
-				if (!file.EndsWith(".jpg"))
+				if (!file.ToLower().EndsWith(".jpg"))
 					continue;
 
 				string fileName = System.IO.Path.GetFileName(file);
@@ -106,8 +106,9 @@ namespace UsersPhotoUpload {
 			bool loadToAd = checkBoxAd.IsChecked == true ? true : false;
 			bool loadToExchange = checkBoxExchange.IsChecked == true ? true : false;
 			bool loadToSurveyLoyalty = checkBoxLoyaltySurvey.IsChecked == true ? true : false;
+			string connectionURI = TextBoxConnectionURI.Text;
 
-			await Task.Run(() => { HandleFiles(items, loadToAd, loadToExchange, loadToSurveyLoyalty); });
+			await Task.Run(() => { HandleFiles(items, loadToAd, loadToExchange, loadToSurveyLoyalty, connectionURI); });
 
 			buttonHandle.IsEnabled = true;
 			Cursor = Cursors.Arrow;
@@ -116,7 +117,7 @@ namespace UsersPhotoUpload {
 				"Загрузка завершена", MessageBoxButton.OK, MessageBoxImage.Information);
 		}
 
-		private void HandleFiles(List<ListViewFilesItem> items, bool loadToAd, bool loadToExchange, bool loadToSurveyLoyalty) {
+		private void HandleFiles(List<ListViewFilesItem> items, bool loadToAd, bool loadToExchange, bool loadToSurveyLoyalty, string connectionURI) {
 			Console.WriteLine("ProcessPhotos");
 
 			ProcessingSystem.ProcessFilesItems(
@@ -124,7 +125,8 @@ namespace UsersPhotoUpload {
 				SetProgressBarValue,
 				loadToAd,
 				loadToExchange,
-				loadToSurveyLoyalty);
+				loadToSurveyLoyalty,
+				connectionURI);
 		}
 
 		private void ButtonSelect_Click(object sender, RoutedEventArgs e) {

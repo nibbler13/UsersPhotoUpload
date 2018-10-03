@@ -9,7 +9,7 @@ using System.Windows;
 namespace UsersPhotoUpload {
 	class ProcessingSystem {
 		public static void ProcessFilesItems(List<ListViewFilesItem> items, Action<double> setProgressBarValue, 
-			bool LoadToAd, bool LoadToExchange, bool LoadToLoyaltySurvey) {
+			bool LoadToAd, bool LoadToExchange, bool LoadToLoyaltySurvey, string connectionURI) {
 			double progressCurrent = 0;
 			double handleTypesCount = Convert.ToInt32(LoadToAd) + Convert.ToInt32(LoadToExchange) + Convert.ToInt32(LoadToLoyaltySurvey);
 			double progressStep = 100 / (items.Count * handleTypesCount);
@@ -47,7 +47,7 @@ namespace UsersPhotoUpload {
 			}
 
 			if (LoadToExchange)
-				Exchange2016System.SetExchangeUsersPhoto(items);
+				Exchange2016System.SetExchangeUsersPhoto(items, connectionURI);
 
 			setProgressBarValue(100);
 		}

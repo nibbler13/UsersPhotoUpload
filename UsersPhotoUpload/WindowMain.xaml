@@ -13,6 +13,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Content="Список фото для загрузки:" Margin="10,0,0,0"/>
         <ListView Grid.Row="1" x:Name="listViewFiles" Margin="10,0,10,10" TextOptions.TextHintingMode="Animated" AllowDrop="True" SelectionChanged="listViewFiles_SelectionChanged" Drop="listViewFiles_Drop">
@@ -41,13 +42,22 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        
         <DockPanel Grid.Row="2" LastChildFill="False">
             <Label Content="Варианты загрузки:" Margin="10,0,0,0"/>
             <CheckBox x:Name="checkBoxAd" Content="ActiveDirectory" VerticalAlignment="Center" Margin="10,0,0,0" IsChecked="True" IsEnabled="True" />
             <CheckBox x:Name="checkBoxExchange" Content="Exchange" VerticalAlignment="Center" Margin="10,0,0,0" IsChecked="True" IsEnabled="True" />
             <CheckBox x:Name="checkBoxLoyaltySurvey" Content="LoyaltySurvey" VerticalAlignment="Center" Margin="10,0,0,0" IsEnabled="True" IsChecked="True"/>
         </DockPanel>
-        <Grid Grid.Row="4">
+
+        <DockPanel Grid.Row="3" Margin="10">
+            <TextBlock Text="Exchange ConnectionURI:" VerticalAlignment="Center"/>
+            <TextBox Text="http://mscs-ex-02.budzdorov.ru/powershell/" Margin="10,0,0,0" VerticalAlignment="Center" x:Name="TextBoxConnectionURI"/>
+        </DockPanel>
+        
+        <ProgressBar x:Name="progressBar" Grid.Row="4" Height="10" Margin="10,0"/>
+        
+        <Grid Grid.Row="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
@@ -59,6 +69,5 @@
             <Button Grid.Column="2" x:Name="buttonSearchAccounts" Content="Определить учетные записи" Click="buttonSearchAccounts_Click" Width="170" Margin="10" HorizontalAlignment="Right" IsEnabled="False"/>
             <Button Grid.Column="3" x:Name="buttonHandle" Content="Загрузить" Click="ButtonHandle_Click" HorizontalAlignment="Right" Margin="0,10,10,10" Width="85" IsEnabled="False"/>
         </Grid>
-        <ProgressBar x:Name="progressBar" Grid.Row="3" Height="10" Margin="10,0"/>
     </Grid>
 </Window>

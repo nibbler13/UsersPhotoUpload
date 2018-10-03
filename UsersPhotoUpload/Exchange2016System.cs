@@ -11,16 +11,21 @@ namespace UsersPhotoUpload {
 	class Exchange2016System {
 		private static string addType = "Add-Type –AssemblyName System.Windows.Forms";
 		private static string exchangeSession = "$Session = New-PSSession -ConfigurationName Microsoft.Exchange " +
-			"-ConnectionUri http://mscs-ex-03.budzdorov.ru/powershell/ -Authentication Kerberos";
+			"-ConnectionUri @connectionURI -Authentication Kerberos";
 		private static string importSession = "Import-PSSession $Session";
 		private static string setUserPhoto = "Set-UserPhoto \"@userMail\" -PictureData ([System.IO.File]::ReadAllBytes(\"@imageFile\")) -Confirm:$false";
 		private static string removeSession = "Remove-PSSession $Session";
+		private static string connectToExchange =
+			"$start = $env:ExchangeInstallPath + 'bin\\RemoteExchange.ps1'" + Environment.NewLine +
+			".$start" + Environment.NewLine +
+			"Connect-ExchangeServer -auto -ClientApplication:ManagementShell";
 		private static string messageFinal = "[System.Windows.Forms.MessageBox]::Show('Окно консоли можно закрыть', 'Загрузка в Exchange завершена', 'OK', 'Information')";
 
-		public static void SetExchangeUsersPhoto(List<ListViewFilesItem> items) {
+		public static void SetExchangeUsersPhoto(List<ListViewFilesItem> items, string connectionURI) {
 			string script =
 				addType + Environment.NewLine +
-				exchangeSession + Environment.NewLine +
+				//connectToExchange;// +
+				exchangeSession.Replace("@connectionURI", connectionURI) + Environment.NewLine +
 				importSession;
 
 			bool isAnythingToProcess = false;
