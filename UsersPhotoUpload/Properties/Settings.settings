@@ -32,5 +32,8 @@
     <Setting Name="FolderUfkk" Type="System.String" Scope="User">
       <Value Profile="(Default)">Уфа</Value>
     </Setting>
+    <Setting Name="FolderYekuk" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Каменск-Уральский</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

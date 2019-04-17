@@ -42,7 +42,8 @@ namespace UsersPhotoUpload {
 					if (LoadToLoyaltySurvey)
 						LoyaltySurveySystem.CopyFileToLoyaltySurvey(item);
 				} catch (Exception e) {
-					Console.WriteLine(e.Message);
+					item.Result = e.Message;
+					Console.WriteLine(e.Message + Environment.NewLine + e.StackTrace);
 				}
 			}
 

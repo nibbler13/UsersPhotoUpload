@@ -27,9 +27,11 @@ namespace UsersPhotoUpload {
 				{ "mspo", Properties.Settings.Default.FolderMspo },
 				{ "mskm", Properties.Settings.Default.FolderMskm },
 				{ "splp", Properties.Settings.Default.FolderSplp },
+				{ "spb", Properties.Settings.Default.FolderSplp },
 				{ "sctrk", Properties.Settings.Default.FolderSctrk },
 				{ "mskv", Properties.Settings.Default.FolderMskv },
-				{ "ufkk", Properties.Settings.Default.FolderUfkk }
+				{ "ufkk", Properties.Settings.Default.FolderUfkk },
+				{ "yekuk", Properties.Settings.Default.FolderYekuk }
 			};
 
 			foreach (KeyValuePair<string, string> folder in folders) {
