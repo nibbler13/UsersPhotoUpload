@@ -40,6 +40,9 @@ namespace UsersPhotoUpload {
 
 				string destinationFile = rootFolder + folder.Value + "\\" + item.AdAccountName + ".jpg";
 				try {
+					if (File.Exists(destinationFile))
+						File.Delete(destinationFile);
+
 					File.Copy(item.IconUri, destinationFile, true);
 				} catch (Exception e) {
 					item.Result += " | LoyaltySurvey - не удалось скопировать файл: " + destinationFile + " - " + e.Message;
